@@ -1,7 +1,7 @@
 package usecase
 
 import (
-	"fiber-demo-sftp/handler"
+	"api-sftp-client/handler"
 	"fmt"
 	"regexp"
 

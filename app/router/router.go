@@ -6,9 +6,9 @@ import (
 	"net/http"
 	"time"
 
-	"fiber-demo-sftp/app/middleware"
-	"fiber-demo-sftp/handler"
-	"fiber-demo-sftp/model"
+	"api-sftp-client/app/middleware"
+	"api-sftp-client/handler"
+	"api-sftp-client/model"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/compress"
@@ -57,12 +57,11 @@ func (r *SetupRouter) Router() {
 	}))
 
 	// RESTFULL API
-	demo := api.Group("/demo-sftp")
-	demo.Get("/retrieve-file", r.iMiddleWare.ServiceMiddleware(), r.iRetrieveFileUsecase.GetFileSFTP)
-	demo.Get("/retrieve-directory", r.iMiddleWare.ServiceMiddleware(), r.iRetrieveFileUsecase.GetDirectorySFTP)
-	demo.Post("/send-file", r.iMiddleWare.ServiceMiddleware(), r.iSendFileUsecase.SendFileSFTP)
-	demo.Delete("/remove-file/*", r.iMiddleWare.ServiceMiddleware(), r.iDeleteFileUsecase.DeleteFileSFTP)
-	demo.Delete("/remove-directory", r.iDeleteFileUsecase.DeleteDirectorySFTP)
+	api.Get("/retrieve-file", r.iMiddleWare.ServiceMiddleware(), r.iRetrieveFileUsecase.GetFileSFTP)
+	api.Get("/retrieve-directory", r.iMiddleWare.ServiceMiddleware(), r.iRetrieveFileUsecase.GetDirectorySFTP)
+	api.Post("/send-file", r.iMiddleWare.ServiceMiddleware(), r.iSendFileUsecase.SendFileSFTP)
+	api.Delete("/remove-file/*", r.iMiddleWare.ServiceMiddleware(), r.iDeleteFileUsecase.DeleteFileSFTP)
+	api.Delete("/remove-directory", r.iDeleteFileUsecase.DeleteDirectorySFTP)
 
 	// HEALTH CHECK
 	app.Get("/", func(ctx *fiber.Ctx) error {

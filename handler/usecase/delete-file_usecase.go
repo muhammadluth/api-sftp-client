@@ -1,9 +1,9 @@
 package usecase
 
 import (
-	"fiber-demo-sftp/handler"
-	"fiber-demo-sftp/model"
-	"fiber-demo-sftp/model/constant"
+	"api-sftp-client/handler"
+	"api-sftp-client/model"
+	"api-sftp-client/model/constant"
 	"strings"
 
 	"github.com/gofiber/fiber/v2"

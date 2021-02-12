@@ -1,0 +1,8 @@
+version: "3"
+services:
+  api-sftp-client:
+    image: api-sftp-client:latest
+    ports:
+      - "8081:8081"
+    volumes:
+      - .env:/app/.env

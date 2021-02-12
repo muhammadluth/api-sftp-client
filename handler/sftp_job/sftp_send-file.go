@@ -1,9 +1,9 @@
 package sftp_job
 
 import (
+	"api-sftp-client/handler"
+	"api-sftp-client/model/constant"
 	"errors"
-	"fiber-demo-sftp/handler"
-	"fiber-demo-sftp/model/constant"
 	"io"
 	"mime/multipart"
 	"strings"

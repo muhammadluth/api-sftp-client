@@ -1,8 +1,8 @@
 package middleware
 
 import (
-	"fiber-demo-sftp/model"
-	"fiber-demo-sftp/util"
+	"api-sftp-client/model"
+	"api-sftp-client/util"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/muhammadluth/log"

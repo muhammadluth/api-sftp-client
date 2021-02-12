@@ -1,21 +1,21 @@
 package mapper
 
 import (
-	"fiber-demo-sftp/handler"
-	"fiber-demo-sftp/model"
+	"api-sftp-client/handler"
+	"api-sftp-client/model"
 	"math"
 	"os"
 	"strconv"
 )
 
-type FiberDemoSftpMapper struct {
+type ApiSftpClientMapper struct {
 }
 
-func NewFiberDemoSftpMapper() handler.IFiberDemoSftpMapper {
-	return &FiberDemoSftpMapper{}
+func NewApiSftpClientMapper() handler.IApiSftpClientMapper {
+	return &ApiSftpClientMapper{}
 }
 
-func (m *FiberDemoSftpMapper) ToResponseGetFileFromSftp(pathDirectory string, files []os.FileInfo) (response []model.ResponseGetFileSFTP) {
+func (m *ApiSftpClientMapper) ToResponseGetFileFromSftp(pathDirectory string, files []os.FileInfo) (response []model.ResponseGetFileSFTP) {
 	for i := range files {
 		if !files[i].IsDir() {
 			payload := model.ResponseGetFileSFTP{
@@ -30,7 +30,7 @@ func (m *FiberDemoSftpMapper) ToResponseGetFileFromSftp(pathDirectory string, fi
 	return response
 }
 
-func (m *FiberDemoSftpMapper) ToResponseGetDirectoryFromSftp(directory []os.FileInfo) (response []model.ResponseGetDirectorySFTP) {
+func (m *ApiSftpClientMapper) ToResponseGetDirectoryFromSftp(directory []os.FileInfo) (response []model.ResponseGetDirectorySFTP) {
 	for i := range directory {
 		if directory[i].IsDir() {
 			payload := model.ResponseGetDirectorySFTP{
@@ -44,7 +44,7 @@ func (m *FiberDemoSftpMapper) ToResponseGetDirectoryFromSftp(directory []os.File
 	return response
 }
 
-func (m *FiberDemoSftpMapper) doFormatSize(size float64) string {
+func (m *ApiSftpClientMapper) doFormatSize(size float64) string {
 	var suffixes [5]string
 	suffixes[0] = "B"
 	suffixes[1] = "KB"
@@ -62,7 +62,7 @@ func (m *FiberDemoSftpMapper) doFormatSize(size float64) string {
 	return strconv.FormatFloat(getSize, 'f', -1, 64) + " " + string(getSuffix)
 }
 
-func (m *FiberDemoSftpMapper) doSize(val float64, roundOn float64, places int) (newVal float64) {
+func (m *ApiSftpClientMapper) doSize(val float64, roundOn float64, places int) (newVal float64) {
 	var round float64
 	pow := math.Pow(10, float64(places))
 	digit := pow * val

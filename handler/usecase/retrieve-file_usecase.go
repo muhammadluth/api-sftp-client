@@ -1,24 +1,24 @@
 package usecase
 
 import (
-	"fiber-demo-sftp/handler"
-	"fiber-demo-sftp/model"
-	"fiber-demo-sftp/model/constant"
+	"api-sftp-client/handler"
+	"api-sftp-client/model"
+	"api-sftp-client/model/constant"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/muhammadluth/log"
 )
 
 type RetrieveFileUsecase struct {
-	iFiberDemoSftpMapper handler.IFiberDemoSftpMapper
+	iApiSftpClientMapper handler.IApiSftpClientMapper
 	iSftpRetrieveFile    handler.ISftpRetrieveFile
 	iValidationUsecase   handler.IValidationUsecase
 }
 
-func NewRetrieveFileUsecase(iFiberDemoSftpMapper handler.IFiberDemoSftpMapper,
+func NewRetrieveFileUsecase(iApiSftpClientMapper handler.IApiSftpClientMapper,
 	iSftpRetrieveFile handler.ISftpRetrieveFile,
 	iValidationUsecase handler.IValidationUsecase) handler.IRetrieveFileUsecase {
-	return &RetrieveFileUsecase{iFiberDemoSftpMapper, iSftpRetrieveFile, iValidationUsecase}
+	return &RetrieveFileUsecase{iApiSftpClientMapper, iSftpRetrieveFile, iValidationUsecase}
 }
 
 func (u *RetrieveFileUsecase) GetFileSFTP(ctx *fiber.Ctx) error {
@@ -52,7 +52,7 @@ func (u *RetrieveFileUsecase) GetFileSFTP(ctx *fiber.Ctx) error {
 		})
 	}
 
-	response := u.iFiberDemoSftpMapper.ToResponseGetFileFromSftp(pathDirectory.PathDirectory,
+	response := u.iApiSftpClientMapper.ToResponseGetFileFromSftp(pathDirectory.PathDirectory,
 		dataFile)
 	return ctx.JSON(model.ResponseSuccessWithData{
 		TotalData: len(response),
@@ -92,7 +92,7 @@ func (u *RetrieveFileUsecase) GetDirectorySFTP(ctx *fiber.Ctx) error {
 		})
 	}
 
-	response := u.iFiberDemoSftpMapper.ToResponseGetDirectoryFromSftp(dataDirectory)
+	response := u.iApiSftpClientMapper.ToResponseGetDirectoryFromSftp(dataDirectory)
 	return ctx.JSON(model.ResponseSuccessWithData{
 		TotalData: len(response),
 		Data:      response,

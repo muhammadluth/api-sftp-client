@@ -1,12 +1,12 @@
 package main
 
 import (
-	"fiber-demo-sftp/app/middleware"
-	"fiber-demo-sftp/app/router"
-	"fiber-demo-sftp/config"
-	"fiber-demo-sftp/handler/mapper"
-	"fiber-demo-sftp/handler/sftp_job"
-	"fiber-demo-sftp/handler/usecase"
+	"api-sftp-client/app/middleware"
+	"api-sftp-client/app/router"
+	"api-sftp-client/config"
+	"api-sftp-client/handler/mapper"
+	"api-sftp-client/handler/sftp_job"
+	"api-sftp-client/handler/usecase"
 
 	"github.com/muhammadluth/log"
 )
@@ -17,7 +17,7 @@ func RunningApplication() {
 	timeout := config.ParseTimeDuration(properties.Timeout)
 
 	// SERVICE
-	iFiberDemoSftpMapper := mapper.NewFiberDemoSftpMapper()
+	iApiSftpClientMapper := mapper.NewApiSftpClientMapper()
 
 	iSftpInitiator := sftp_job.NewSftpInitiator(properties)
 	iSftpRetrieveFile := sftp_job.NewSftpRetrieveFile(iSftpInitiator)
@@ -25,9 +25,9 @@ func RunningApplication() {
 	iSftpDeleteFile := sftp_job.NewSftpDeleteFile(iSftpInitiator)
 
 	iValidationUsecase := usecase.NewValidationUsecase()
-	iRetrieveFileUsecase := usecase.NewRetrieveFileUsecase(iFiberDemoSftpMapper, iSftpRetrieveFile,
+	iRetrieveFileUsecase := usecase.NewRetrieveFileUsecase(iApiSftpClientMapper, iSftpRetrieveFile,
 		iValidationUsecase)
-	iSendFileUsecase := usecase.NewSendFileUsecase(iFiberDemoSftpMapper, iSftpSendFile,
+	iSendFileUsecase := usecase.NewSendFileUsecase(iApiSftpClientMapper, iSftpSendFile,
 		iValidationUsecase)
 	iDeleteFileUsecase := usecase.NewDeleteFileUsecase(iSftpDeleteFile, iValidationUsecase)
 

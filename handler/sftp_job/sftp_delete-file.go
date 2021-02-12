@@ -1,8 +1,8 @@
 package sftp_job
 
 import (
+	"api-sftp-client/handler"
 	"errors"
-	"fiber-demo-sftp/handler"
 
 	"github.com/muhammadluth/log"
 )

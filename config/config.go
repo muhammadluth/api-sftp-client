@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"time"
 
-	"fiber-demo-sftp/model"
+	"api-sftp-client/model"
 
 	"github.com/joho/godotenv"
 )

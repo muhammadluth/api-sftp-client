@@ -1,24 +1,24 @@
 package usecase
 
 import (
-	"fiber-demo-sftp/handler"
-	"fiber-demo-sftp/model"
-	"fiber-demo-sftp/model/constant"
+	"api-sftp-client/handler"
+	"api-sftp-client/model"
+	"api-sftp-client/model/constant"
 	"strings"
 
 	"github.com/gofiber/fiber/v2"
 )
 
 type SendFileUsecase struct {
-	iFiberDemoSftpMapper handler.IFiberDemoSftpMapper
+	iApiSftpClientMapper handler.IApiSftpClientMapper
 	iSftpSendFile        handler.ISftpSendFile
 	iValidationUsecase   handler.IValidationUsecase
 }
 
-func NewSendFileUsecase(iFiberDemoSftpMapper handler.IFiberDemoSftpMapper,
+func NewSendFileUsecase(iApiSftpClientMapper handler.IApiSftpClientMapper,
 	iSftpSendFile handler.ISftpSendFile,
 	iValidationUsecase handler.IValidationUsecase) handler.ISendFileUsecase {
-	return &SendFileUsecase{iFiberDemoSftpMapper, iSftpSendFile, iValidationUsecase}
+	return &SendFileUsecase{iApiSftpClientMapper, iSftpSendFile, iValidationUsecase}
 }
 
 func (u *SendFileUsecase) SendFileSFTP(ctx *fiber.Ctx) error {

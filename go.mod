@@ -1,4 +1,4 @@
-module fiber-demo-sftp
+module api-sftp-client
 
 go 1.15
 

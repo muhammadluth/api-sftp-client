@@ -1,11 +1,11 @@
 package handler
 
 import (
-	"fiber-demo-sftp/model"
+	"api-sftp-client/model"
 	"os"
 )
 
-type IFiberDemoSftpMapper interface {
+type IApiSftpClientMapper interface {
 	ToResponseGetFileFromSftp(pathDirectory string, files []os.FileInfo) (response []model.ResponseGetFileSFTP)
 	ToResponseGetDirectoryFromSftp(directory []os.FileInfo) (response []model.ResponseGetDirectorySFTP)
 }
