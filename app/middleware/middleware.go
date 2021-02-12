@@ -42,6 +42,8 @@ func (m *Middleware) ServiceMiddleware() func(*fiber.Ctx) error {
 		ctx.Set("X-Frame-Options", "SAMEORIGIN")
 		ctx.Set("X-DNS-Prefetch-Control", "off")
 
+		ctx.Locals("traceId", traceId)
+
 		m.poolConnection.Submit(func() {
 			log.Message(
 				traceId,
@@ -54,7 +56,6 @@ func (m *Middleware) ServiceMiddleware() func(*fiber.Ctx) error {
 				"RESPONSE",
 				string(ctx.Response().Body()))
 		})
-		ctx.Locals("traceId", traceId)
 		return ctx.Next()
 	}
 }

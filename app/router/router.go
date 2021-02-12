@@ -16,7 +16,6 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/etag"
 	"github.com/gofiber/fiber/v2/middleware/filesystem"
 	"github.com/gofiber/fiber/v2/middleware/requestid"
-	"github.com/gofiber/fiber/v2/middleware/timeout"
 	"github.com/muhammadluth/log"
 )
 
@@ -59,21 +58,16 @@ func (r *SetupRouter) Router() {
 
 	// RESTFULL API
 	demo := api.Group("/demo-sftp")
-	demo.Get("/retrieve-file", r.iMiddleWare.ServiceMiddleware(),
-		timeout.New(r.iRetrieveFileUsecase.GetFileSFTP, r.timeout))
-	demo.Get("/retrieve-directory", r.iMiddleWare.ServiceMiddleware(),
-		timeout.New(r.iRetrieveFileUsecase.GetDirectorySFTP, r.timeout))
-	demo.Post("/send-file", r.iMiddleWare.ServiceMiddleware(),
-		timeout.New(r.iSendFileUsecase.SendFileSFTP, r.timeout))
-	demo.Delete("/remove-file/*", r.iMiddleWare.ServiceMiddleware(),
-		timeout.New(r.iDeleteFileUsecase.DeleteFileSFTP, r.timeout))
-	demo.Delete("/remove-directory", timeout.New(r.iDeleteFileUsecase.DeleteDirectorySFTP,
-		r.timeout))
+	demo.Get("/retrieve-file", r.iMiddleWare.ServiceMiddleware(), r.iRetrieveFileUsecase.GetFileSFTP)
+	demo.Get("/retrieve-directory", r.iMiddleWare.ServiceMiddleware(), r.iRetrieveFileUsecase.GetDirectorySFTP)
+	demo.Post("/send-file", r.iMiddleWare.ServiceMiddleware(), r.iSendFileUsecase.SendFileSFTP)
+	demo.Delete("/remove-file/*", r.iMiddleWare.ServiceMiddleware(), r.iDeleteFileUsecase.DeleteFileSFTP)
+	demo.Delete("/remove-directory", r.iDeleteFileUsecase.DeleteDirectorySFTP)
 
 	// HEALTH CHECK
-	app.Get("/", timeout.New(func(ctx *fiber.Ctx) error {
+	app.Get("/", func(ctx *fiber.Ctx) error {
 		return ctx.JSON(fiber.Map{"message": "Hello, Welcome to My Apps!"})
-	}, r.timeout))
+	})
 
 	log.Event("Listening on port" + *addr)
 	fmt.Println("Listening on port" + *addr)
