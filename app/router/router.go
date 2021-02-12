@@ -61,10 +61,10 @@ func (r *SetupRouter) Router() {
 	api.Get("/retrieve-directory", r.iMiddleWare.ServiceMiddleware(), r.iRetrieveFileUsecase.GetDirectorySFTP)
 	api.Post("/send-file", r.iMiddleWare.ServiceMiddleware(), r.iSendFileUsecase.SendFileSFTP)
 	api.Delete("/remove-file/*", r.iMiddleWare.ServiceMiddleware(), r.iDeleteFileUsecase.DeleteFileSFTP)
-	api.Delete("/remove-directory", r.iDeleteFileUsecase.DeleteDirectorySFTP)
+	api.Delete("/remove-directory", r.iMiddleWare.ServiceMiddleware(), r.iDeleteFileUsecase.DeleteDirectorySFTP)
 
 	// HEALTH CHECK
-	app.Get("/", func(ctx *fiber.Ctx) error {
+	app.Get("/", r.iMiddleWare.ServiceMiddleware(), func(ctx *fiber.Ctx) error {
 		return ctx.JSON(fiber.Map{"message": "Hello, Welcome to My Apps!"})
 	})
 
