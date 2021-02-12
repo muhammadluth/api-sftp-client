@@ -1,0 +1,8 @@
+.vscode
+.idea
+.DS_Store
+.env
+
+logs
+config-log.json
+go.sum
