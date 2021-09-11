@@ -19,7 +19,3 @@ jobs:
 
       - name: Build
         run: go build -mod=vendor -o api-sftp-client .
-
-      - uses: paambaati/codeclimate-action@v2.7.2
-        env:
-        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
