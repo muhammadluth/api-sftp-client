@@ -50,7 +50,7 @@ jobs:
         run: |
           aws elasticbeanstalk create-application-version \
           --application-name go-sftp-client \
-          --source-bundle S3Bucket="api-sftp-client",S3Key="api-sftp-client.zip" \
+          --source-bundle S3Bucket="elasticbeanstalk-ap-southeast-1-949010166236",S3Key="api-sftp-client.zip" \
           --version-label "ver-${{ github.sha }}" \
           --description "commit-sha-${{ github.sha }}"
 
