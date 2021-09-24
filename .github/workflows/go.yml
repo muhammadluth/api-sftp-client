@@ -1,21 +1,47 @@
-name: Go
+# name: Go
 
+# on:
+#   push:
+#     branches: [master]
+#   pull_request:
+#     branches: [master]
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+
+#       - name: Set up Go
+#         uses: actions/setup-go@v2
+#         with:
+#           go-version: 1.17
+
+#       - name: Build
+#         run: go build -mod=vendor -o api-sftp-client .
+name: Go
 on:
   push:
-    branches: [master]
-  pull_request:
-    branches: [master]
+    branches:
+      - master
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout source code
+        uses: actions/checkout@v2
 
-      - name: Set up Go
-        uses: actions/setup-go@v2
+      - name: Generate deployment package
+        run: zip -r api-sftp-client.zip . -x '*.git*'
+
+      - name: Deploy to EB
+        uses: einaregilsson/beanstalk-deploy@v18
         with:
-          go-version: 1.17
-
-      - name: Build
-        run: go build -mod=vendor -o api-sftp-client .
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
+          application_name: api-sftp-client
+          environment_name: Apisftpclient-env
+          version_label: 12345
+          region: us-west-2
+          deployment_package: api-sftp-client.zip
