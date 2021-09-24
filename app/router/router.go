@@ -70,6 +70,6 @@ func (r *SetupRouter) Router() {
 
 	log.Event("Listening on port" + *addr)
 	fmt.Println("Listening on port" + *addr)
-	fmt.Println("Ready to serve ~")
+	fmt.Println("Ready to serve")
 	log.Fatal(app.Listen(*addr))
 }
