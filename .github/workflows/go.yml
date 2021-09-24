@@ -44,15 +44,15 @@ jobs:
           aws-region: "ap-southeast-1"
 
       - name: Upload package to S3 bucket
-        run: aws s3 cp api-sftp-client.zip s3://api-sftp-client/
+        run: aws s3 cp api-sftp-client.zip s3://elasticbeanstalk-ap-southeast-1-949010166236/
 
       - name: Create new ElasticBeanstalk Application Version
         run: |
           aws elasticbeanstalk create-application-version \
-          --application-name api-sftp-client \
+          --application-name go-sftp-client \
           --source-bundle S3Bucket="api-sftp-client",S3Key="api-sftp-client.zip" \
           --version-label "ver-${{ github.sha }}" \
           --description "commit-sha-${{ github.sha }}"
 
       - name: Deploy new ElasticBeanstalk Application Version
-        run: aws elasticbeanstalk update-environment --environment-name api-sftp-client-env-1 --version-label "ver-${{ github.sha }}"
+        run: aws elasticbeanstalk update-environment --environment-name Gosftpclient-env --version-label "ver-${{ github.sha }}"
